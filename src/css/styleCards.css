@@ -1,0 +1,185 @@
+.container_cards {
+  position: relative;
+  width: 93%;
+  min-height: 400px;
+  margin: 10px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  justify-content: space-around;
+}
+
+.line_title {
+  width: 99%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 110px;
+}
+
+.line_title .title {
+  display: flex;
+  text-align: center;
+  font-size: 40px;
+  color: #49497e;
+  font-weight: 700;
+  -webkit-text-stroke: 0.3px black;
+  /* box-shadow: 0 -55px 28px -25px #1a163f inset; */
+}
+
+.line3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 99%;
+  height: 4px;
+  background: #fc036b;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.darkMode .title {
+  color: white;
+}
+
+.line2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 99%;
+  height: 4px;
+  background: #fc036b;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.cards {
+  position: relative;
+  width: 270px;
+  height: auto;
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 10px 0;
+}
+
+.ocultar__card {
+  display: none;
+}
+
+.cards_tipo {
+  background: #eb3349;
+  width: 45px;
+  height: 25px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bolder;
+  letter-spacing: 1.5px;
+  position: absolute;
+  z-index: 100;
+  top: 12px;
+  right: 15px;
+}
+
+.cards_img {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 250px;
+  height: 350px;
+  margin: 10px 20px;
+  border: 1px solid #1a163f;
+  border-radius: 3px;
+  box-shadow: 0 0 10px #5a189a;
+  background: #5a189a;
+}
+
+.cards_img .cards_back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 61%;
+  width: 100%;
+  /* background-image: url(../img/kamatte_v3.png); */
+  background-size: 260px 340px;
+  background-position: left top;
+  transition: all 0.5s ease-in-out;
+  background-repeat: no-repeat;
+}
+
+.cards_img .cards_back2 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 39%;
+  width: 100%;
+  /* background-image: url(/img/kamatte1.jpg); */
+  background-size: 260px 363px;
+  background-position: left bottom;
+  transition: all 0.5s ease-in-out;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 50px;
+  height: 120px;
+  padding: 15px 10px;
+  text-align: center;
+  font-size: 17px;
+  color: white;
+  transform: rotate(90deg);
+  transform-origin: 0 100px;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
+.overlay_title {
+  display: flex;
+}
+
+.overlay_descripcion {
+  display: flex;
+  font-size: 1rem;
+  margin-top: 9px;
+}
+
+.card_title {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  justify-content: center;
+}
+
+.darkMode .card_title {
+  color: white;
+}
+
+.cards_title {
+  width: 80%;
+  display: flex;
+  font-weight: bolder;
+  align-items: center;
+  text-align: center;
+}
+
+.cards_img:hover .cards_back {
+  transform: rotate(10deg) scale(1.3) translate(20px, 0);
+  transform-origin: 220px 220px;
+  opacity: 0.5;
+}
+
+.cards_img:hover .cards_back2 {
+  transform: rotate(90deg) translate(0px, 150px);
+  transform-origin: -20px 200px;
+}
+
+.cards_img:hover .overlay {
+  opacity: 0.8;
+  transform: rotate(0deg);
+}

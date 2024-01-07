@@ -1,0 +1,157 @@
+.btn_logo {
+  top: 5px;
+  left: 5px;
+  z-index: 150;
+}
+
+.header_nav {
+  width: 95%;
+  justify-content: flex-end;
+  height: 70px;
+  z-index: 520;
+}
+
+.nav_item {
+  width: 95%;
+  justify-content: flex-end;
+}
+
+.nav_items {
+  width: auto;
+  margin: 10px;
+}
+
+.outline {
+  outline: 2px solid black;
+  height: 40px;
+}
+
+.outline:hover {
+  outline: 2px solid lime;
+}
+
+.border_color {
+  /* box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); */
+  /* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); */
+  -webkit-text-stroke: 0.5px #000;
+  /* -webkit-text-fill-color: transparent; */
+  /* WebkitTextFillColor: transparent; */
+}
+
+.btn_bars {
+  display: none;
+}
+
+.btn_dark {
+  height: 40px;
+  width: 40px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: 0 0 1px rgba(112, 111, 111, 0.3);
+}
+
+.header-content {
+  width: 50%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  flex-direction: column;
+  color: whitesmoke;
+  text-align: center;
+  -webkit-text-stroke: 1px black;
+}
+
+.line {
+  width: 95%;
+  height: 4px;
+  background: #fc036b;
+  margin: 10px auto;
+  border-radius: 5px;
+}
+
+.header-content h1 {
+  font-size: 7vmin;
+  margin-bottom: 30px;
+}
+
+.header-content h2 {
+  font-size: 30px;
+}
+
+@media only screen and (max-width: 900px) {
+  .header_nav {
+    height: 90px;
+  }
+
+  .nav_items {
+    width: 120px;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 790px) {
+  .btn_logo {
+    left: initial;
+    right: 5px;
+  }
+  .header {
+    height: 50vh;
+  }
+
+  .header_nav {
+    width: 300px;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    left: 0;
+    background: #0b132b;
+    transform: translateX(-300px);
+    transition: 0.5s;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
+  .nav_item {
+    width: 95%;
+    height: 85vh;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .nav_items {
+    width: 150px;
+    color: white;
+  }
+
+  .btn_bars {
+    display: flex;
+    left: 0;
+    top: 5px;
+    z-index: 150;
+  }
+
+  .mostrar_nav {
+    transform: translateX(0);
+    transition: 0.5s;
+  }
+
+  .mover_bar {
+    left: 300px;
+  }
+
+  .header-content {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  .menu_query {
+    width: 400px;
+    height: 70vh;
+    flex-direction: column;
+    display: flex;
+  }
+}

@@ -18,7 +18,7 @@ const App = createBrowserRouter([
         element: <PageNovel />,
       },
       {
-        path: "/leer/:clave/:chapter",
+        path: "leer/:clave/:chapter",
         element: <Chapter />,
       },
     ],

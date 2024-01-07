@@ -6,6 +6,7 @@ import Volumenes from "../Components/Volumenes";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AppUse from "../Hooks/AppUse";
+import Loading from "../Components/Loading";
 // import AcordionCapitulos from "../Components/AcordionCapitulos";
 
 const PageNovel = () => {
@@ -52,7 +53,7 @@ const PageNovel = () => {
     };
     solicitud();
   }, []);
-  if (loader) return ".....";
+  if (loader) return <Loading />;
   return (
     <>
       <Descripcion novela={novela} />

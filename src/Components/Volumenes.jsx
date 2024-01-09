@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import Loading from "./Loading";
-// import data from "../../Content/volumenes.json";
 
 const Volumenes = () => {
   const [volumen, setVolumen] = useState([]);
@@ -54,7 +53,7 @@ const Volumenes = () => {
       }
     };
     solicitud();
-  }, []);
+  }, [name]);
   if (loader) return <Loading />;
 
   return (

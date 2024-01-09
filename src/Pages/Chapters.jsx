@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../Components/Loading";
 import "../css/styleChapter.css";
@@ -68,7 +68,7 @@ function formatearTextoConImagenes(texto) {
   });
 }
 
-const Chapter = () => {
+const Chapters = () => {
   const { setTitle, setHeigth, setBgHeader } = AppUse();
   const [dataContent, setData] = useState("");
   const [loader, setLoader] = useState(true);
@@ -76,18 +76,12 @@ const Chapter = () => {
   const params = useParams();
   const { clave, chapter } = params;
   let texto = "";
-  // console.log(clave, chapter);
   useEffect(() => {
     const fecthData = async () => {
       try {
-        // const { data } = await axios(`https://api.jsonbin.io/v3/b/${binId}`, {
-        //   headers: {
-        //     "X-Master-Key": apiKey,
-        //     "X-Access-Key": accesKey,
-        //   },
-        // });
-        // let remplazo = data.record["1"].replace(/\\n/g, "\n");
-        const { data } = await axios(`/jsons/${clave}/${chapter}.txt`);
+        const { data } = await axios(
+          `/${clave}_webNovel/${chapter}.txt`
+        );
         setData(data);
         const title = data
           .split(/\n\s*\n/)
@@ -109,7 +103,7 @@ const Chapter = () => {
   useEffect(() => {
     const fecthFiles = async () => {
       try {
-        await axios(`/jsons/${clave}/${+chapter + 1}.txt`);
+        await axios(`/${clave}_webNovel/${+chapter + 1}.txt`);
         setCont(+chapter + 1);
       } catch (error) {
         setCont(+chapter);
@@ -141,7 +135,7 @@ const Chapter = () => {
             {chapter > 1 ? (
               <Link
                 className="previuos cursor-pointer text-black btn_dinamic "
-                to={`/leer/${clave}/${+chapter - 1}`}
+                to={`/leer/webnovel/${clave}/${+chapter - 1}`}
               >
                 <img src="https://i.ibb.co/LS3B5Ky/previuos.webp" alt="" />
               </Link>
@@ -156,7 +150,7 @@ const Chapter = () => {
             {chapter < cont ? (
               <Link
                 className="next cursor-pointer text-black btn_dinamic mostrar"
-                to={`/leer/${clave}/${+chapter + 1}`}
+                to={`/leer/webnovel/${clave}/${+chapter + 1}`}
               >
                 <img src="https://i.ibb.co/jLxQJGZ/next.webp" alt="" />
               </Link>
@@ -172,4 +166,4 @@ const Chapter = () => {
   );
 };
 
-export default Chapter;
+export default Chapters;

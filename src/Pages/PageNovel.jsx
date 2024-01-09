@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import AppUse from "../Hooks/AppUse";
 import Loading from "../Components/Loading";
-// import AcordionCapitulos from "../Components/AcordionCapitulos";
+import AcordionCapitulos from "../Components/AcordionCapitulos";
 
 const PageNovel = () => {
   const { setBgHeader, setTitle, setTitleText, setHeigth } = AppUse();
@@ -52,14 +52,14 @@ const PageNovel = () => {
       }
     };
     solicitud();
-  }, []);
+  }, [name]);
   if (loader) return <Loading />;
   return (
     <>
       <Descripcion novela={novela} />
       <Personajes personajes={novela.personajes} />
+      {name === "It_Seems_I_Was_Hitting" && <AcordionCapitulos />}
       <Gallery ilustraciones={novela.ilustraciones} />
-      {/* <AcordionCapitulos/> */}
       <Volumenes />
     </>
   );

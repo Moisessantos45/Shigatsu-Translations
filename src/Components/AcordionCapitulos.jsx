@@ -4,15 +4,15 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Link, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 
 const AcordionCapitulos = () => {
-  const [dataChapters, setChapters] = useState([]);
+  let array = Array.from({ length: 83 }, (_, i) => i + 1);
+  // console.log(array);
   const params = useParams();
   const { name } = params;
 
-  const capitulosArray = Object.values(dataChapters);
+  const capitulosArray = array;
   const [expanded, setExpanded] = useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
@@ -24,11 +24,13 @@ const AcordionCapitulos = () => {
     gruposDeCapitulos.push(capitulosArray.slice(i, i + 10));
   }
   return (
-    <div className=" w-10/12 flex flex-col" style={{ margin: "20px auto" }}>
+    <div className=" w-10/12 flex flex-col margin">
       {gruposDeCapitulos.length > 0 ? (
         <>
           <div className="w-full flex justify-center m-2">
-            <h1 className=" text-xl">Capitulos</h1>
+            <h1 className=" text-xl font-bold">
+              Capitulos Disponibles &quot;Web Novel&quot;
+            </h1>
           </div>
           {gruposDeCapitulos.map((grupo, i) => (
             <Accordion
@@ -47,14 +49,14 @@ const AcordionCapitulos = () => {
                 id="panel1bh-header"
               >
                 <Typography
-                  sx={{ width: "33%", flexShrink: 0, color: "white" }}
+                  sx={{ width: "85%", flexShrink: 0, color: "white" }}
                 >
-                  {`Capitulos ${i + 1}-${i + 10}`}
+                  {`Capitulos ${i * 10 + 1}-${i * 10 + 10}`}
                 </Typography>
               </AccordionSummary>
-              {grupo.map((char) => (
+              {grupo.map((char, i) => (
                 <AccordionDetails
-                  key={char._id}
+                  key={i}
                   sx={{
                     backgroundColor: "#2c2449",
                     borderRadius: "0 0 10px 10px",
@@ -63,10 +65,10 @@ const AcordionCapitulos = () => {
                 >
                   <Typography>
                     <Link
-                      to={`/capitulo/${char.clave}/${char.capitulo}`}
+                      to={`/leer/webnovel/${name}/${char}`}
                       className="flex items-center text-sm text-white w-10/12 h-5"
                     >
-                      {char.titulo}
+                      Capitulo {char}
                     </Link>
                   </Typography>
                 </AccordionDetails>

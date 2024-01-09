@@ -138,7 +138,7 @@ const Chapter = () => {
           {contenidoFormateado}
           <span className="h-1 w-full flex justify-center items-center rounded-md color_line"></span>
           <div className="naveg">
-            {chapter > 1 ? (
+            {+chapter > 1 ? (
               <Link
                 className="previuos cursor-pointer text-black btn_dinamic "
                 to={`/leer/${clave}/${+chapter - 1}`}
@@ -153,7 +153,7 @@ const Chapter = () => {
                 <img src="https://i.ibb.co/hgYVmk4/home.webp" alt="" />
               </Link>
             </div>
-            {chapter < cont ? (
+            {+chapter < cont ? (
               <Link
                 className="next cursor-pointer text-black btn_dinamic mostrar"
                 to={`/leer/${clave}/${+chapter + 1}`}

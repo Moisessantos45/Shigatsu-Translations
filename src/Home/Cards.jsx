@@ -18,7 +18,7 @@ const Cards = () => {
   const accesKey =
     "$2a$10$9pDdIw7tHtHBAn2AIYZmEeGlGWOTHsB1MDhMvu3DTI" +
     import.meta.env.VITE_ACCESS_KEY;
-  console.log(apiKey);
+  // console.log(apiKey);
   const binId = "65987eb5dc746540188d80e8";
   const handelSubmit = (e) => {
     e.preventDefault();

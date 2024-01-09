@@ -119,7 +119,7 @@ const Chapter = () => {
       }
     };
     fecthFiles();
-  }, []);
+  }, [chapter]);
 
   if (loader) return <Loading />;
   if (dataContent) {

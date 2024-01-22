@@ -45,10 +45,9 @@ const PageNovel = () => {
         setTitle(novel[0].titulo);
         setTitleText("");
         setHeigth(false);
+        setLoader(false);
       } catch (error) {
         console.log(error);
-      } finally {
-        setLoader(false);
       }
     };
     solicitud();

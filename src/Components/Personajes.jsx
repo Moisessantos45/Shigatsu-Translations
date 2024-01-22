@@ -1,10 +1,10 @@
-import bg from "../img/5.jpg";
+import bg from "../img/5.webp";
 import PropTypes from "prop-types";
 
 const Personajes = ({ personajes }) => {
   // console.log(personajes);
   return (
-    <section className=" w-11/12 margin pt-3 flex justify-evenly flex-wrap">
+    <section className=" w-11/12 margin pt-3 flex justify-evenly items-center flex-wrap">
       {personajes.length > 0 ? (
         <>
           {personajes.map((item, i) => (

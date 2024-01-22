@@ -32,7 +32,7 @@ const Cards = () => {
             "X-Access-Key": accesKey,
           },
         });
-        console.log(data.record);
+        // console.log(data.record);
         const novel = Object.keys(data.record)
           .map((key) =>
             data.record[key].map((item) => {

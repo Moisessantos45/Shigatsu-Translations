@@ -60,9 +60,11 @@ const Volumenes = () => {
     <section className=" w-11/12 margin flex justify-evenly flex-wrap">
       {volumen.length > 0 ? (
         <>
-          <div className="h-24 m-auto mt-2 flex justify-evenly text-center flex-col w-12/12">
+          <div className="h-24 m-auto mt-2 flex justify-evenly text-center items-center flex-col w-12/12">
             <span className="line3 h-1 w-full flex justify-center items-center rounded-md color_line"></span>
-            <h1 className="title text-4xl uppercase font-bold">Volumenes</h1>
+            <h1 className="title text-4xl uppercase font-bold flex justify-center items-center">
+              Volumenes
+            </h1>
             <span className="line3 h-1 w-full flex justify-center items-center rounded-md color_line"></span>
           </div>
           {volumen.map((vol, i) => (

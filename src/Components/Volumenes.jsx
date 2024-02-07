@@ -85,7 +85,7 @@ const Volumenes = () => {
                 {downloand[i] == "leer" ? (
                   <Link
                     className=" w-10/12 h-8 text-white flex justify-center items-center color_line rounded-xl cursor-pointer"
-                    to={`/leer/${name}/1`}
+                    to={`/leer/${name}_${vol.volumen}/1`}
                   >
                     Leer
                   </Link>

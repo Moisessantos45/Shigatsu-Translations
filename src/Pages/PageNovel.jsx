@@ -10,7 +10,8 @@ import Loading from "../Components/Loading";
 import AcordionCapitulos from "../Components/AcordionCapitulos";
 
 const PageNovel = () => {
-  const { setBgHeader, setTitle, setTitleText, setHeigth } = AppUse();
+  const { setBgHeader, setTitle, setTitleText, setHeigth, setHidden } =
+    AppUse();
   const [novela, setNovela] = useState([]);
   const [loader, setLoader] = useState(true);
   const apiKey =
@@ -45,6 +46,7 @@ const PageNovel = () => {
         setTitle(novel[0].titulo);
         setTitleText("");
         setHeigth(false);
+        setHidden(false);
         setLoader(false);
       } catch (error) {
         console.log(error);

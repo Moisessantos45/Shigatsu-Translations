@@ -54,7 +54,7 @@
 .header-content {
   width: 50%;
   position: absolute;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
   align-self: center;
@@ -140,11 +140,11 @@
 
   .mover_bar {
     left: 300px;
-  }
+  } 
 
-  .header-content {
+  /* .header-content {
     display: none;
-  }
+  } */
 }
 
 @media only screen and (max-width: 680px) {
@@ -154,4 +154,8 @@
     flex-direction: column;
     display: flex;
   }
+  .header-content h2 {
+    font-size: 20px;
+  }
+  
 }

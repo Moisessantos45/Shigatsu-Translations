@@ -7,7 +7,8 @@ const AppProvider = ({ children }) => {
   const [bg_header, setBgHeader] = useState("");
   const [titleHeader, setTitle] = useState("");
   const [titleTextHeader, setTitleText] = useState("");
-  const [heigth,setHeigth]=useState(false)
+  const [heigth, setHeigth] = useState(false)
+  const [hidden, setHidden] = useState(false)
   return (
     <AppContext.Provider
       value={{
@@ -18,7 +19,9 @@ const AppProvider = ({ children }) => {
         titleTextHeader,
         setTitleText,
         heigth,
-        setHeigth
+        setHeigth,
+        hidden,
+        setHidden
       }}
     >
       {children}

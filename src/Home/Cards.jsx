@@ -7,7 +7,8 @@ import AppUse from "../Hooks/AppUse";
 import bg from "../img/portada.png";
 
 const Cards = () => {
-  const { setBgHeader, setTitle, setTitleText, setHeigth } = AppUse();
+  const { setBgHeader, setTitle, setTitleText, setHeigth, setHidden } =
+    AppUse();
   const [datos, setData] = useState([]);
   const [loader, setLoader] = useState(true);
   const [search, setSearch] = useState("");
@@ -47,6 +48,7 @@ const Cards = () => {
         setTitle("ShigatsuTranslations");
         setTitleText("Una pagina dedicada a traducir novelas ligeras");
         setHeigth(false);
+        setHidden(false);
       } catch (error) {
         console.log(error);
       } finally {

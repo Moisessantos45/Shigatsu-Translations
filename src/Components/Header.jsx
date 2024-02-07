@@ -8,7 +8,7 @@ import dark from "../img/modo-oscuro.png";
 import AppUse from "../Hooks/AppUse";
 
 const Header = () => {
-  const { bg_header, titleHeader, titleTextHeader, heigth } = AppUse();
+  const { bg_header, titleHeader, titleTextHeader, heigth, hidden } = AppUse();
   const locarDark = localStorage.getItem("theme") === "darkMode";
   const [mostrar, setMostrar] = useState(false);
   const [quitarDark, setDark] = useState(locarDark);
@@ -39,10 +39,10 @@ const Header = () => {
         className="absolute w-32 h-20 cursor-pointer hover:scale-125 btn_logo"
       />
       <header
-        className={`header m-auto relative top-0 left-0 ${
+        className={`header m-auto relative top-0 left-0 sm:h-[50vh] ${
           heigth
-            ? "h-[50vh]"
-            : " h-[30vh] sm:h-[50vh] tablet:h-[65vh] lg:h-[90vh]"
+            ? "h-[40vh]"
+            : " h-[40vh]  tablet:h-[65vh] lg:h-[90vh]"
         }`}
         style={{ backgroundImage: `url(${bg_header})` }}
       >
@@ -61,12 +61,18 @@ const Header = () => {
         >
           <ul className="nav_item flex items-center">
             <li className="flex nav_items w-auto justify-center items-center">
-              <Link to="/" className="border_color flex hover:text-pink-600 font-bold text-lg capitalize">
+              <Link
+                to="/"
+                className="border_color flex hover:text-pink-600 font-bold text-lg capitalize"
+              >
                 Home
               </Link>
             </li>
             <li className="flex nav_items justify-center items-center">
-              <Link to="novela/Kamatte_Shinsotsu-chan_ga" className="border_color flex hover:text-pink-600 font-bold text-lg capitalize">
+              <Link
+                to="novela/Kamatte_Shinsotsu-chan_ga"
+                className="border_color flex hover:text-pink-600 font-bold text-lg capitalize"
+              >
                 Kamatte Shinsotsu-chan
               </Link>
             </li>
@@ -100,7 +106,11 @@ const Header = () => {
             </li>
           </ul>
         </nav>
-        <div className={`header-content ${heigth ? " bottom-2 w-8/12" : ""}`}>
+        <div
+          className={`header-content sm:flex ${
+            heigth ? " bottom-2 w-8/12" : ""
+          } ${hidden ? "flex" : "hidden"}`}
+        >
           <h2
             className={`${
               heigth ? " text-base uppercase leading-relaxed" : ""

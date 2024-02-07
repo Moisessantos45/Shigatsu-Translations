@@ -69,7 +69,7 @@ function formatearTextoConImagenes(texto) {
 }
 
 const Chapter = () => {
-  const { setTitle, setHeigth, setBgHeader } = AppUse();
+  const { setTitle, setHeigth, setBgHeader,setHidden } = AppUse();
   const [dataContent, setData] = useState("");
   const [loader, setLoader] = useState(true);
   const [cont, setCont] = useState(0);
@@ -96,6 +96,7 @@ const Chapter = () => {
         setTitle(title);
         setBgHeader("");
         setHeigth(true);
+        setHidden(true)
       } catch (error) {
         setTitle("No hay capitulo");
         console.log(error);

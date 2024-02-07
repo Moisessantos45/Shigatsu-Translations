@@ -69,7 +69,7 @@ function formatearTextoConImagenes(texto) {
 }
 
 const Chapters = () => {
-  const { setTitle, setHeigth, setBgHeader } = AppUse();
+  const { setTitle, setHeigth, setBgHeader, setHidden } = AppUse();
   const [dataContent, setData] = useState("");
   const [loader, setLoader] = useState(true);
   const [cont, setCont] = useState(0);
@@ -79,9 +79,7 @@ const Chapters = () => {
   useEffect(() => {
     const fecthData = async () => {
       try {
-        const { data } = await axios(
-          `/${clave}_webNovel/${chapter}.txt`
-        );
+        const { data } = await axios(`/${clave}_webNovel/${chapter}.txt`);
         setData(data);
         const title = data
           .split(/\n\s*\n/)
@@ -90,6 +88,7 @@ const Chapters = () => {
         setTitle(title);
         setBgHeader("");
         setHeigth(true);
+        setHidden(true);
       } catch (error) {
         setTitle("No hay capitulo");
         console.log(error);

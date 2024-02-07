@@ -69,10 +69,11 @@ function formatearTextoConImagenes(texto) {
 }
 
 const Chapter = () => {
-  const { setTitle, setHeigth, setBgHeader,setHidden } = AppUse();
+  const { setTitle, setHeigth, setBgHeader, setHidden } = AppUse();
   const [dataContent, setData] = useState("");
   const [loader, setLoader] = useState(true);
   const [cont, setCont] = useState(0);
+  const [name, setName] = useState("");
   const params = useParams();
   const { clave, chapter } = params;
   let texto = "";
@@ -96,12 +97,14 @@ const Chapter = () => {
         setTitle(title);
         setBgHeader("");
         setHeigth(true);
-        setHidden(true)
+        setHidden(true);
       } catch (error) {
         setTitle("No hay capitulo");
         console.log(error);
       } finally {
         setLoader(false);
+        const title = clave.split("_").slice(0, -1).join("_");
+        setName(title);
       }
     };
     fecthData();
@@ -150,7 +153,7 @@ const Chapter = () => {
               ""
             )}
             <div className="home">
-              <Link to={`/novela/${clave}`} className="home__url">
+              <Link to={`/novela/${name}`} className="home__url">
                 <img src="https://i.ibb.co/hgYVmk4/home.webp" alt="" />
               </Link>
             </div>

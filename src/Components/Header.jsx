@@ -41,8 +41,8 @@ const Header = () => {
       <header
         className={`header m-auto relative top-0 left-0 sm:h-[50vh] ${
           heigth
-            ? "h-[40vh]"
-            : " h-[40vh]  tablet:h-[65vh] lg:h-[90vh]"
+            ? "h-[35vh]"
+            : " h-[40vh] tablet:h-[65vh] lg:h-[90vh]"
         }`}
         style={{ backgroundImage: `url(${bg_header})` }}
       >
@@ -108,7 +108,7 @@ const Header = () => {
         </nav>
         <div
           className={`header-content sm:flex ${
-            heigth ? " bottom-2 w-8/12" : ""
+            heigth ? "bottom-2 w-11/12 sm:w-8/12" : "m-3"
           } ${hidden ? "flex" : "hidden"}`}
         >
           <h2

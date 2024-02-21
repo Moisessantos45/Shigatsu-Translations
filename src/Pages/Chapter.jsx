@@ -6,28 +6,79 @@ import "../css/styleChapter.css";
 import AppUse from "../Hooks/AppUse";
 
 const unirSimbolos = (texto) => {
-  const symbols = ["◊◊◊", "◊◊", "◊", "$$$", "$$", "$", "**", "*", "§§§"];
+  const theme = document.documentElement.classList.contains("darkMode");
+  const themeActive = theme ? "bg-zinc-700" : "bg-gray-300";
+  const symbols = [
+    "◊◊◊",
+    "◊◊",
+    "◊",
+    "$$$",
+    "$$",
+    "$",
+    "**",
+    "*",
+    "§§§",
+    "◆ ◆ ◆",
+    "☆",
+    "☆☆",
+    "☆☆☆",
+    "++++++++",
+    "++++++",
+    "+++++++++",
+    "+++++++",
+    "+++++++++++++++++++++++++",
+    "+++++",
+  ];
+  const notasTraductor = "-----";
   let result = [];
   let preBlock = "";
+  let insideNote = false;
 
   for (let line of texto.split("\n")) {
-    let isSymbol = symbols.includes(line.trim());
-    if (isSymbol) {
-      if (preBlock !== "") {
+    if (line.trim() === notasTraductor) {
+      if (!insideNote) {
+        insideNote = true;
+        if (preBlock !== "") {
+          result.push(
+            <pre key={result.length} className="whitespace-pre-line">
+              {preBlock}
+            </pre>
+          );
+          preBlock = "";
+        }
+      } else {
+        insideNote = false;
         result.push(
-          <pre key={result.length} className="whitespace-pre-line">
+          <span
+            key={result.length}
+            className={`m-auto mt-2 mb-2 flex w-full p-1 ${themeActive} rounded-lg`}
+          >
             {preBlock}
-          </pre>
+          </span>
         );
         preBlock = "";
       }
-      result.push(
-        <span key={result.length} className="m-auto flex justify-center w-12">
-          {line}
-        </span>
-      );
-    } else {
+    } else if (insideNote) {
       preBlock += line + "\n";
+    } else {
+      let isSymbol = symbols.includes(line.trim());
+      if (isSymbol) {
+        if (preBlock !== "") {
+          result.push(
+            <pre key={result.length} className="whitespace-pre-line">
+              {preBlock}
+            </pre>
+          );
+          preBlock = "";
+        }
+        result.push(
+          <span key={result.length} className="m-auto flex justify-center w-24">
+            {line}
+          </span>
+        );
+      } else {
+        preBlock += line + "\n";
+      }
     }
   }
 
@@ -77,17 +128,9 @@ const Chapter = () => {
   const params = useParams();
   const { clave, chapter } = params;
   let texto = "";
-  // console.log(clave, chapter);
   useEffect(() => {
     const fecthData = async () => {
       try {
-        // const { data } = await axios(`https://api.jsonbin.io/v3/b/${binId}`, {
-        //   headers: {
-        //     "X-Master-Key": apiKey,
-        //     "X-Access-Key": accesKey,
-        //   },
-        // });
-        // let remplazo = data.record["1"].replace(/\\n/g, "\n");
         const { data } = await axios(`/jsons/${clave}/${chapter}.txt`);
         setData(data);
         const title = data
@@ -100,7 +143,7 @@ const Chapter = () => {
         setHidden(true);
       } catch (error) {
         setTitle("No hay capitulo");
-        console.log(error);
+        return;
       } finally {
         setLoader(false);
         const title = clave.split("_").slice(0, -1).join("_");
@@ -117,7 +160,7 @@ const Chapter = () => {
         setCont(+chapter + 1);
       } catch (error) {
         setCont(+chapter);
-        // console.log(error);
+        return;
       } finally {
         setLoader(false);
       }
@@ -134,7 +177,6 @@ const Chapter = () => {
       .join("\n");
   }
   const contenidoFormateado = formatearTextoConImagenes(texto);
-  // console.log(contenidoFormateado);
   return (
     <section className="container_capi">
       {contenidoFormateado.length > 0 ? (

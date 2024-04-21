@@ -41,7 +41,6 @@ const Cards = () => {
             })
           )
           .flat();
-        console.log(novel);
         setData(novel);
         setFilteredData(novel);
         setBgHeader(bg);

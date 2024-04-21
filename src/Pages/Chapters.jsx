@@ -91,7 +91,6 @@ const Chapters = () => {
         setHidden(true);
       } catch (error) {
         setTitle("No hay capitulo");
-        console.log(error);
       } finally {
         setLoader(false);
       }

@@ -49,7 +49,6 @@ const PageNovel = () => {
         setHidden(false);
         setLoader(false);
       } catch (error) {
-        console.log(error);
       }
     };
     solicitud();

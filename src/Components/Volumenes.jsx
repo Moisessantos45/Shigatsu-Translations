@@ -47,7 +47,6 @@ const Volumenes = () => {
         setDownloand(descargar);
       } catch (error) {
         setVolumen([]);
-        console.log(error);
       } finally {
         setLoader(false);
       }

@@ -14,13 +14,11 @@ const Cards = () => {
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const apiKey =
-    "$2a$10$Iz8NbMTcnqg0zbxONqy7Nu1i7PXRMY9aOPhzg429po" +
-    import.meta.env.VITE_API_KEY;
-  const accesKey =
-    "$2a$10$9pDdIw7tHtHBAn2AIYZmEeGlGWOTHsB1MDhMvu3DTI" +
-    import.meta.env.VITE_ACCESS_KEY;
-  // console.log(apiKey);
-  const binId = "65987eb5dc746540188d80e8";
+    "$2a$10$MIgcnZC4XKF." + "WREJQBQgq" + import.meta.env.VITE_API_KEY;
+
+  const accesKey = "$2a$10$jMdAcKIvA40FjzM" + import.meta.env.VITE_ACCESS_KEY;
+
+  const binId = "665d231cacd3cb34a851d916";
   const handelSubmit = (e) => {
     e.preventDefault();
   };

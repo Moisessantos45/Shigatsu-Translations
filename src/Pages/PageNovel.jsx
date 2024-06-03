@@ -16,8 +16,8 @@ const PageNovel = () => {
   const [loader, setLoader] = useState(true);
   const apiKey =
     "$2a$10$MIgcnZC4XKF." + "WREJQBQgq" + import.meta.env.VITE_API_KEY;
-  const accesKey = import.meta.env.VITE_ACCESS_KEY;
-  const binId = "65987eb5dc746540188d80e8";
+  const accesKey = "$2a$10$jMdAcKIvA40FjzM" + import.meta.env.VITE_ACCESS_KEY;
+  const binId = "665d231cacd3cb34a851d916";
   const params = useParams();
   const { name } = params;
   //   console.log(name);

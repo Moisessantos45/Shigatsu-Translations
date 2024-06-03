@@ -9,12 +9,9 @@ const Volumenes = () => {
   const [downloand, setDownloand] = useState([]);
   const [loader, setLoader] = useState(true);
   const apiKey =
-    "$2a$10$Iz8NbMTcnqg0zbxONqy7Nu1i7PXRMY9aOPhzg429po" +
-    import.meta.env.VITE_API_KEY;
-  const accesKey =
-    "$2a$10$9pDdIw7tHtHBAn2AIYZmEeGlGWOTHsB1MDhMvu3DTI" +
-    import.meta.env.VITE_ACCESS_KEY;
-  const binId = "6599cf76266cfc3fde7376d9";
+    "$2a$10$MIgcnZC4XKF." + "WREJQBQgq" + import.meta.env.VITE_API_KEY;
+  const accesKey = import.meta.env.VITE_ACCESS_KEY;
+  const binId = "65987eb5dc746540188d80e8";
   const params = useParams();
   const { name } = params;
   // console.log(name);

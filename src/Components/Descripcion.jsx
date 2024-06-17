@@ -2,67 +2,108 @@ import PropTypes from "prop-types";
 
 const Descripcion = ({ novela }) => {
   // console.log(novela);
-  const { imagen, autor, nombres, volumenes, Activo, sinopsis, generos } =
-    novela;
+  const {
+    imagen,
+    autor,
+    nombres,
+    volumenes,
+    Activo,
+    sinopsis,
+    generos,
+    titulo,
+    tipo,
+  } = novela;
   return (
     <>
-      <section className="minfo w-11/12 m-auto flex justify-center items-center flex-col">
-        <div className="minfo_title h-16 m-auto mt-2 flex justify-evenly text-center flex-col w-full">
-          <span className="line3 h-1 w-full flex justify-center items-center rounded-md color_line"></span>
-          <h1 className="title text-2xl uppercase font-bold">Informacion</h1>
-          <span className="line3 h-1 w-full flex justify-center items-center rounded-md color_line"></span>
-        </div>
-        <figure className=" sm:w-3/12 w-8/12 p-2 m-auto mt-2 flex justify-center flex-col items-center">
+      <section className="sm:container w-10/12 mx-auto p-6 mt-5 bg-slate-900 rounded-lg shadow-xl flex flex-col md:flex-row items-center">
+        <figure className="mb-6 md:mb-0 md:mr-6 flex-shrink-0">
           <img
             src={imagen}
-            alt=""
-            className=" rounded-lg shadow-md shadow-slate-200"
+            alt="portada"
+            className="w-52 sm:w-72 md:w-80 lg:w-96 rounded-md shadow-lg"
           />
-          <div className="web flex justify-center items-center flex-col m-2">
-            <h4 className=" font-bold uppercase">Novela ligera</h4>
-            <p className="text-1">Novela en proceso</p>
-          </div>
         </figure>
+
+        <div className="flex-1">
+          <h1 className="sm:text-2xl text-xl font-bold mb-4 text-slate-300">
+            {titulo}
+          </h1>
+          <p className="text-xl mb-6 text-slate-400">
+            {tipo.toLocaleLowerCase() === "ln" ? " (Light Novel)" : "Web Novel"}
+          </p>
+          <div className="flex flex-col space-y-4 mb-6">
+            <div>
+              <span className="text-slate-400 font-semibold">Estado: </span>
+              <span className="text-slate-200">
+                {Activo ? "En curso" : "Finalizado"}
+              </span>
+            </div>
+            <div>
+              <span className="text-slate-400 font-semibold">
+                Nombres Alternativos:{" "}
+              </span>
+              <span className="text-slate-200">{nombres}</span>
+            </div>
+            <div>
+              <span className="text-slate-400 font-semibold">Géneros: </span>
+              <span className="text-slate-200">
+                {generos.split(",").map((genero, index) => (
+                  <span key={index}>{genero}</span>
+                ))}
+              </span>
+            </div>
+          </div>
+
+          {/* <div className="flex space-x-4 mb-6">
+            <button className="bg-orange-700 hover:bg-orange-800 text-white font-semibold py-2 px-4 rounded">
+              Encargados
+            </button>
+            <button className="bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded">
+              D. específicos
+            </button>
+          </div> */}
+
+          <div className="space-y-2">
+            <div>
+              <span className="text-slate-400 font-semibold">Volumenes: </span>
+              <span className="text-slate-200">{volumenes}</span>
+            </div>
+            <div>
+              <span className="text-slate-400 font-semibold">Author: </span>
+              <span className="text-slate-200">{autor}</span>
+            </div>
+            <div>
+              <span className="text-slate-400 font-semibold">Traductor: </span>
+              <span className="text-slate-200">ShigatsuTranslations</span>
+            </div>
+            <div>
+              <span className="text-slate-400 font-semibold">Corrector: </span>
+              <span className="text-slate-200">ShigatsuTranslations</span>
+            </div>
+            <div>
+              <span className="text-slate-400 font-semibold">Cleaner: </span>
+              <span className="text-slate-200">
+                ShigatsuTranslations && Moy45
+              </span>
+            </div>
+
+            <div>
+              <span className="text-slate-400 font-semibold">EPUB: </span>
+              <span className="text-slate-200">?</span>
+            </div>
+            <div>
+              <span className="text-slate-400 font-semibold">PDF: </span>
+              <span className="text-slate-200">?</span>
+            </div>
+          </div>
+        </div>
       </section>
-      <section className="info w-11/12 m-auto justify-center flex p-2">
-        <table className=" w-12/12 flex flex-col items-center gap-1">
-          <caption className=" capitalize m-1">
-            Informacion de la novelas
-          </caption>
-          <thead className=" flex items-center flex-col w-full gap-2">
-            <tr className=" w-full flex p-1">
-              <th className=" sm:w-2/12 w-5/12 flex">Nombres alternos:</th>
-              <td className="ml-1 flex">{nombres}</td>
-            </tr>
-            <tr className=" w-full flex p-1">
-              <th className=" sm:w-2/12 w-3/12 flex">Autor</th>
-              <td className="ml-1">{autor}</td>
-            </tr>
-            <tr className=" w-full flex p-1">
-              <th className=" sm:w-2/12 w-4/12 flex">Generos:</th>
-              <td>{generos}</td>
-            </tr>
-            <tr className=" w-full flex p-1">
-              <th className=" sm:w-2/12 w-4/12 flex">Volumenes:</th>
-              <td className="ml-1">{volumenes}</td>
-            </tr>
-            <tr className=" w-full flex p-1">
-              <th className=" sm:w-2/12 w-4/12 flex">activo:</th>
-              <td>{Activo ? "si" : "no"}</td>
-            </tr>
-            <tr className=" w-full flex p-1">
-              <th className=" w-full text-center" colSpan={2}>
-                Sinopsis:
-              </th>
-            </tr>
-            <tr>
-              <td colSpan={2}>
-                <pre className="sinopsis">{sinopsis}</pre>
-              </td>
-            </tr>
-          </thead>
-        </table>
-      </section>
+      <article className="p-6 rounded-md shadow-inner mt-8 container mx-auto">
+        <h2 className="text-2xl font-bold mb-4 text-slate-300">Sinopsis</h2>
+        <pre className="sinopsis overflow-hidden text-slate-200">
+          {sinopsis}
+        </pre>
+      </article>
     </>
   );
 };
@@ -70,17 +111,5 @@ const Descripcion = ({ novela }) => {
 Descripcion.propTypes = {
   novela: PropTypes.object.isRequired,
 };
-
-// Descripcion.propTypes = {
-//   novela: PropTypes.shape({
-//     imagen: PropTypes.string,
-//     autor: PropTypes.string,
-//     nombres: PropTypes.string,
-//     volumenes: PropTypes.number,
-//     Activo: PropTypes.bool,
-//     sinopsis: PropTypes.string,
-//     generos: PropTypes.arrayOf(PropTypes.string),
-//   }).isRequired,
-// };
 
 export default Descripcion;

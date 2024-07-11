@@ -1,52 +1,72 @@
 import PropTypes from "prop-types";
+import AppUse from "../Hooks/AppUse";
 
 const Descripcion = ({ novela }) => {
-  // console.log(novela);
+  const { quitarDark } = AppUse();
+
   const {
-    imagen,
-    autor,
-    nombres,
-    volumenes,
-    Activo,
-    sinopsis,
+    titleNovel,
+    volumenesActuales,
+    nombresAlternos,
+    portada,
+    tipoNovela,
     generos,
-    titulo,
-    tipo,
+    autor,
+    sinopsis,
+    statusNovel,
   } = novela;
+
+  const bgColor = quitarDark
+    ? "bg-slate-900 shadow-xl"
+    : "bg-[#e9eaed] shadow-md";
+  const textColorPrimary = quitarDark ? "text-slate-300" : "text-gray-900";
+  const textColorSecondary = quitarDark ? "text-slate-400" : "text-gray-700";
+  const textColorTertiary = quitarDark ? "text-slate-200" : "text-gray-800";
+
   return (
     <>
-      <section className="sm:container w-10/12 mx-auto p-6 mt-5 bg-slate-900 rounded-lg shadow-xl flex flex-col md:flex-row items-center">
+      <section
+        className={`sm:container w-10/12 mx-auto p-6 mt-5 ${bgColor} rounded-lg flex flex-col md:flex-row items-center`}
+      >
         <figure className="mb-6 md:mb-0 md:mr-6 flex-shrink-0">
           <img
-            src={imagen}
+            src={portada}
             alt="portada"
             className="w-52 sm:w-72 md:w-80 lg:w-96 rounded-md shadow-lg"
           />
         </figure>
 
         <div className="flex-1">
-          <h1 className="sm:text-2xl text-xl font-bold mb-4 text-slate-300">
-            {titulo}
+          <h1
+            className={`sm:text-2xl text-xl font-bold mb-4 ${textColorPrimary}`}
+          >
+            {titleNovel}
           </h1>
-          <p className="text-xl mb-6 text-slate-400">
-            {tipo.toLocaleLowerCase() === "ln" ? " (Light Novel)" : "Web Novel"}
+          <p className={`text-xl mb-6 ${textColorSecondary}`}>
+            {tipoNovela.toLocaleLowerCase() === "ln"
+              ? " (Light Novel)"
+              : "Web Novel"}
           </p>
           <div className="flex flex-col space-y-4 mb-6">
             <div>
-              <span className="text-slate-400 font-semibold">Estado: </span>
-              <span className="text-slate-200">
-                {Activo ? "En curso" : "Finalizado"}
+              <span className={`${textColorSecondary} font-semibold`}>
+                Estado:{" "}
+              </span>
+              <span className={textColorTertiary}>
+                {statusNovel === "activo" ? "En curso" : "Finalizado"}
               </span>
             </div>
             <div>
-              <span className="text-slate-400 font-semibold">
+              <span className={`${textColorSecondary} font-semibold`}>
                 Nombres Alternativos:{" "}
               </span>
-              <span className="text-slate-200">{nombres}</span>
+              <span className={textColorTertiary}>{nombresAlternos}</span>
             </div>
             <div>
-              <span className="text-slate-400 font-semibold">Géneros: </span>
-              <span className="text-slate-200">
+              <span className={`${textColorSecondary} font-semibold`}>
+                Géneros:{" "}
+              </span>
+              <span className={textColorTertiary}>
                 {generos.split(",").map((genero, index) => (
                   <span key={index}>{genero}</span>
                 ))}
@@ -54,53 +74,60 @@ const Descripcion = ({ novela }) => {
             </div>
           </div>
 
-          {/* <div className="flex space-x-4 mb-6">
-            <button className="bg-orange-700 hover:bg-orange-800 text-white font-semibold py-2 px-4 rounded">
-              Encargados
-            </button>
-            <button className="bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded">
-              D. específicos
-            </button>
-          </div> */}
-
           <div className="space-y-2">
             <div>
-              <span className="text-slate-400 font-semibold">Volumenes: </span>
-              <span className="text-slate-200">{volumenes}</span>
+              <span className={`${textColorSecondary} font-semibold`}>
+                Volumenes:{" "}
+              </span>
+              <span className={textColorTertiary}>{volumenesActuales}</span>
             </div>
             <div>
-              <span className="text-slate-400 font-semibold">Author: </span>
-              <span className="text-slate-200">{autor}</span>
+              <span className={`${textColorSecondary} font-semibold`}>
+                Author:{" "}
+              </span>
+              <span className={textColorTertiary}>{autor}</span>
             </div>
             <div>
-              <span className="text-slate-400 font-semibold">Traductor: </span>
-              <span className="text-slate-200">ShigatsuTranslations</span>
+              <span className={`${textColorSecondary} font-semibold`}>
+                Traductor:{" "}
+              </span>
+              <span className={textColorTertiary}>ShigatsuTranslations</span>
             </div>
             <div>
-              <span className="text-slate-400 font-semibold">Corrector: </span>
-              <span className="text-slate-200">ShigatsuTranslations</span>
+              <span className={`${textColorSecondary} font-semibold`}>
+                Corrector:{" "}
+              </span>
+              <span className={textColorTertiary}>ShigatsuTranslations</span>
             </div>
             <div>
-              <span className="text-slate-400 font-semibold">Cleaner: </span>
-              <span className="text-slate-200">
+              <span className={`${textColorSecondary} font-semibold`}>
+                Cleaner:{" "}
+              </span>
+              <span className={textColorTertiary}>
                 ShigatsuTranslations && Moy45
               </span>
             </div>
 
             <div>
-              <span className="text-slate-400 font-semibold">EPUB: </span>
-              <span className="text-slate-200">?</span>
+              <span className={`${textColorSecondary} font-semibold`}>
+                EPUB:{" "}
+              </span>
+              <span className={textColorTertiary}>?</span>
             </div>
             <div>
-              <span className="text-slate-400 font-semibold">PDF: </span>
-              <span className="text-slate-200">?</span>
+              <span className={`${textColorSecondary} font-semibold`}>
+                PDF:{" "}
+              </span>
+              <span className={textColorTertiary}>?</span>
             </div>
           </div>
         </div>
       </section>
-      <article className="p-6 rounded-md shadow-inner mt-8 container mx-auto">
-        <h2 className="text-2xl font-bold mb-4 text-slate-300">Sinopsis</h2>
-        <pre className="sinopsis overflow-hidden text-slate-200">
+      <article className={`p-6 rounded-md mt-8 container mx-auto`}>
+        <h2 className={`text-2xl font-bold mb-4 ${textColorPrimary}`}>
+          Sinopsis
+        </h2>
+        <pre className={`sinopsis overflow-hidden ${textColorTertiary}`}>
           {sinopsis}
         </pre>
       </article>

@@ -1,53 +1,53 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../Components/Loading";
-import axios from "axios";
 import "../css/styleCards.css";
 import AppUse from "../Hooks/AppUse";
 import bg from "../img/portada.png";
+import dbFirebase from "../Config/firebase";
+import { collection, getDocs } from "firebase/firestore/lite";
+import { fromToJsonMapNovel } from "../Services/useServices";
 
 const Cards = () => {
-  const { setBgHeader, setTitle, setTitleText, setHeigth, setHidden } =
-    AppUse();
+  const {
+    setBgHeader,
+    setTitle,
+    setTitleText,
+    setHeigth,
+    setHidden,
+    quitarDark,
+  } = AppUse();
   const [datos, setData] = useState([]);
   const [loader, setLoader] = useState(true);
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-  const apiKey =
-    "$2a$10$MIgcnZC4XKF." + "WREJQBQgq" + import.meta.env.VITE_API_KEY;
+  const name_collection = import.meta.env.VITE_COLLECTION_NOVEL;
 
-  const accesKey = "$2a$10$jMdAcKIvA40FjzM" + import.meta.env.VITE_ACCESS_KEY;
-
-  const binId = "665d231cacd3cb34a851d916";
   const handelSubmit = (e) => {
     e.preventDefault();
   };
+
   useEffect(() => {
     const solicitud = async () => {
       try {
-        const { data } = await axios(`https://api.jsonbin.io/v3/b/${binId}`, {
-          headers: {
-            "X-Master-Key": apiKey,
-            "X-Access-Key": accesKey,
-          },
-        });
-        // console.log(data.record);
-        const novel = Object.keys(data.record)
-          .map((key) =>
-            data.record[key].map((item) => {
-              return item;
-            })
-          )
-          .flat();
-        setData(novel);
-        setFilteredData(novel);
+        const novelCol = collection(dbFirebase, name_collection);
+        const novelSnapshot = await getDocs(novelCol);
+        const novelList = novelSnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          idNovel: doc.id,
+        }));
+        const fromToJson = novelList.map(fromToJsonMapNovel);
+
+        setData(fromToJson);
+        setFilteredData(fromToJson);
         setBgHeader(bg);
         setTitle("ShigatsuTranslations");
         setTitleText("Una pagina dedicada a traducir novelas ligeras");
         setHeigth(false);
         setHidden(false);
       } catch (error) {
-        console.log(error);
+        setData([]);
+        setFilteredData([]);
       } finally {
         setLoader(false);
       }
@@ -55,28 +55,45 @@ const Cards = () => {
     };
     solicitud();
   }, []);
+
   useEffect(() => {
     const filterData = datos.filter((item) =>
-      item.titulo.toLowerCase().includes(search.toLowerCase())
+      item.titleNovel.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredData(filterData);
   }, [datos, search]);
 
+  const inputBgColor = quitarDark ? "dark:bg-gray-700" : "bg-gray-50";
+  const inputBorderColor = quitarDark
+    ? "dark:border-gray-600"
+    : "border-gray-300";
+  const inputTextColor = quitarDark ? "dark:text-white" : "text-gray-900";
+  const placeholderColor = quitarDark
+    ? "dark:placeholder-gray-400"
+    : "placeholder-gray-400";
+  const focusRingColor = quitarDark
+    ? "focus:ring-blue-500"
+    : "focus:ring-blue-500";
+  const focusBorderColor = quitarDark
+    ? "focus:border-blue-500"
+    : "focus:border-blue-500";
+
+  const activeTextColor = quitarDark ? "text-[#ffffff]" : "text-[#000000]";
   if (loader) return <Loading />;
   return (
     <>
       <section className="flex w-11/12 margin">
-        <form className="w-full" onSubmit={handelSubmit}>
+        <form className="w-full mt-5" onSubmit={handelSubmit}>
           <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
           >
             Search
           </label>
-          <div className="relative shadow-xl">
+          <div className="relative shadow-md">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <svg
-                className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                className={`w-4 h-4 ${inputTextColor}`}
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -94,17 +111,11 @@ const Cards = () => {
             <input
               type="search"
               id="default-search"
-              className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className={`block w-full p-4 pl-10 text-sm ${inputTextColor} border ${inputBorderColor} rounded-lg ${inputBgColor} ${focusRingColor} ${focusBorderColor} ${placeholderColor}`}
               placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            {/* <button
-              type="submit"
-              className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Search
-            </button> */}
           </div>
         </form>
       </section>
@@ -119,17 +130,17 @@ const Cards = () => {
         {filteredData.length > 0 ? (
           filteredData.map(
             (novela) =>
-              novela.Activo == true && (
-                <figure key={novela.id} className="cards">
-                  <span className="cards_tipo">{novela.tipo}</span>
+              novela.statusNovel === "activo" && (
+                <figure key={novela.idNovel} className="cards">
+                  <span className="cards_tipo">{novela.tipoNovela}</span>
                   <div className="cards_img">
                     <div
                       className="cards_back"
-                      style={{ backgroundImage: `url(${novela.imagen})` }}
+                      style={{ backgroundImage: `url(${novela.portada})` }}
                     ></div>
                     <div
                       className="cards_back2"
-                      style={{ backgroundImage: `url(${novela.imagen})` }}
+                      style={{ backgroundImage: `url(${novela.portada})` }}
                     ></div>
                     <div className="overlay">
                       <h2 className="overlay_title">Sinopsis:</h2>
@@ -139,10 +150,14 @@ const Cards = () => {
                     </div>
                   </div>
                   <Link
-                    to={`/novela/${novela?.clave}`}
+                    to={`/novela/${novela.idNovel}?nombre=${encodeURIComponent(
+                      novela.titleNovel
+                    )}`}
                     className="font-bold card_title"
                   >
-                    <p className="cards_title">{novela.titulo}</p>
+                    <p className={`cards_title ${activeTextColor}`}>
+                      {novela.titleNovel}
+                    </p>
                   </Link>
                 </figure>
               )

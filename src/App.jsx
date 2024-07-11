@@ -17,15 +17,15 @@ const App = createBrowserRouter([
         element: <Cards />,
       },
       {
-        path: "novela/:name",
+        path: "novela/:id",
         element: <PageNovel />,
       },
       {
-        path: "leer/:clave/:chapter",
+        path: "leer/:clave/:vol/:capitulo",
         element: <Chapter />,
       },
       {
-        path: "leer/webnovel/:clave/:chapter",
+        path: "leer/webnovel/:path/:clave/:chapter",
         element: <Chapters />,
       },
     ],

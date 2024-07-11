@@ -151,19 +151,14 @@
 
 .card_title {
   text-decoration: none;
-  color: black;
   display: flex;
   justify-content: center;
-}
-
-.darkMode .card_title {
-  color: white;
 }
 
 .cards_title {
   width: 80%;
   display: flex;
-  font-weight: bolder;
+  font-weight: 800;
   align-items: center;
   text-align: center;
 }

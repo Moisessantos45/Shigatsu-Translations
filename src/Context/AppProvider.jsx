@@ -7,8 +7,10 @@ const AppProvider = ({ children }) => {
   const [bg_header, setBgHeader] = useState("");
   const [titleHeader, setTitle] = useState("");
   const [titleTextHeader, setTitleText] = useState("");
-  const [heigth, setHeigth] = useState(false)
-  const [hidden, setHidden] = useState(false)
+  const [heigth, setHeigth] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const locarDark = localStorage.getItem("theme") === "darkMode";
+  const [quitarDark, setDark] = useState(locarDark);
   return (
     <AppContext.Provider
       value={{
@@ -21,7 +23,9 @@ const AppProvider = ({ children }) => {
         heigth,
         setHeigth,
         hidden,
-        setHidden
+        setHidden,
+        quitarDark,
+        setDark,
       }}
     >
       {children}

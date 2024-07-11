@@ -1,17 +1,21 @@
+:root {
+  --background-light: #ffffff;
+  --background-dark: rgb(32, 32, 44);
+  --btn-bg-light: #03fc18;
+  --btn-bg-dark: #1a9c00;
+  --text-light: #000000;
+  --text-dark: #ffffff;
+}
 
 .container_capi {
   width: 80%;
   margin: 20px auto;
-  /* display: flex;
-    flex-wrap: wrap;
-    gap: 0; */
-  /* justify-content: space-evenly; */
   line-height: 2;
   word-wrap: break-word;
 }
 
 .container_capi pre {
-  margin: 0px 0px 20px 0px;
+  margin: 0 0 20px 0;
   display: flex;
   white-space: pre-line;
   flex-direction: column;
@@ -22,15 +26,11 @@
   justify-content: center;
 }
 
-/* pre{
-        white-space: pre-line;
-    } */
-
 .container_capi figure {
   display: flex;
   justify-content: center;
   width: 90%;
-  margin: 0px auto;
+  margin: 0 auto;
 }
 
 .container_capi img {
@@ -44,68 +44,30 @@
   margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
-  gap: 0;
+  gap: 10px;
   justify-content: center;
 }
 
-.previuos {
+.naveg .btn {
   display: flex;
-  justify-content: space-evenly;
-  outline: 1px solid orange;
-  background-color: #03fc18;
+  justify-content: center;
+  align-items: center;
   width: 110px;
   height: 30px;
   margin: 5px;
   border-radius: 10px;
+  color: var(--text-dark);
+  background-color: var(--btn-bg-light);
+  transition: background-color 0.3s;
 }
 
-.btn_naveg {
-  color: white;
-  width: auto;
+body.darkMode .naveg .btn {
+  background-color: var(--btn-bg-dark);
 }
 
 .naveg img {
-  /* position: relative; */
-  width: 10px;
-  margin: 5px;
-}
-
-.home {
-  display: flex;
-  outline: 1px solid orange;
-  background-color: #03fc18;
-  width: 110px;
-  height: 30px;
-  margin: 5px;
-  border-radius: 10px;
-  justify-content: space-evenly;
-}
-
-.btn_naveg-link {
-  width: 95%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
-.home img {
   width: 20px;
   height: 20px;
-}
-
-.naveg .next {
-  display: flex;
-  outline: 1px solid orange;
-  background-color: #03fc18;
-  width: 100px;
-  height: 30px;
-  margin: 5px;
-  border-radius: 10px;
-  justify-content: center;
-}
-
-.btn_naveg-w {
-  width: 60%;
 }
 
 @media only screen and (max-width: 765px) {

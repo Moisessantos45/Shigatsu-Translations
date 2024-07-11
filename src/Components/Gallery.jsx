@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 const Gallery = ({ ilustraciones }) => {
   // console.log(ilustraciones);
 
-  const separarIlustraciones =
-    ilustraciones.trim() ? ilustraciones.trim().split(",") : 0;
+  const separarIlustraciones = ilustraciones.trim()
+    ? ilustraciones.trim().split(",")
+    : 0;
   // console.log(separarIlustraciones);
   return (
     <section className="w-11/12 flex justify-center items-center m-auto flex-col">
@@ -23,13 +24,14 @@ const Gallery = ({ ilustraciones }) => {
                 key={i}
                 src={item}
                 alt=""
+                loading="lazy"
                 className=" max-w-40 sm:max-w-72 object-contain m-2"
               />
             ))}
           </figure>
         </>
       ) : (
-        ""
+        <span></span>
       )}
     </section>
   );

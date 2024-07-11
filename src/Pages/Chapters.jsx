@@ -1,90 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import Loading from "../Components/Loading";
 import "../css/styleChapter.css";
 import AppUse from "../Hooks/AppUse";
+import { formatearTextoConImagenes } from "../Components/FormatChapter";
 
-const unirSimbolos = (texto) => {
-  const symbols = ["◊◊◊", "◊◊", "◊", "$$$", "$$", "$", "**", "*", "§§§"];
-  let result = [];
-  let preBlock = "";
-
-  for (let line of texto.split("\n")) {
-    let isSymbol = symbols.includes(line.trim());
-    if (isSymbol) {
-      if (preBlock !== "") {
-        result.push(
-          <pre key={result.length} className="whitespace-pre-line">
-            {preBlock}
-          </pre>
-        );
-        preBlock = "";
-      }
-      result.push(
-        <span key={result.length} className="m-auto flex justify-center w-12">
-          {line}
-        </span>
-      );
-    } else {
-      preBlock += line + "\n";
-    }
-  }
-
-  if (preBlock !== "") {
-    result.push(
-      <pre key={result.length} className="whitespace-pre-line">
-        {preBlock}
-      </pre>
-    );
-  }
-
-  return result;
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
 };
-
-function formatearTextoConImagenes(texto) {
-  // console.log(texto)
-  if (texto.length < 0) return [];
-  if (!new RegExp("https://i.ibb.co", "i").test(texto)) {
-    return unirSimbolos(texto);
-  }
-  const fragmentos = texto.split("\nhttps://i.ibb.co");
-  return fragmentos.flatMap((fragmento, i) => {
-    if (i === 0) {
-      return [unirSimbolos(fragmento)];
-    } else {
-      const indiceEspacio = fragmento.indexOf("\n");
-      const url = `https://i.ibb.co${
-        indiceEspacio !== -1 ? fragmento.slice(0, indiceEspacio) : fragmento
-      }`;
-      const resto = indiceEspacio !== -1 ? fragmento.slice(indiceEspacio) : "";
-      return [
-        <figure key={i}>
-          <img src={url.trim()} alt="" />
-        </figure>,
-        unirSimbolos(resto),
-      ];
-    }
-  });
-}
 
 const Chapters = () => {
   const { setTitle, setHeigth, setBgHeader, setHidden } = AppUse();
-  const [dataContent, setData] = useState("");
   const [loader, setLoader] = useState(true);
   const [cont, setCont] = useState(0);
   const params = useParams();
-  const { clave, chapter } = params;
-  let texto = "";
+  const { path, clave, chapter } = params;
+  const query = useQuery();
+  const volumen = query.get("volumen");
+  const url =
+    path !== "chapterText"
+      ? `/${clave}/${chapter}.txt`
+      : `/jsons/${clave}_${volumen}/${chapter}.txt`;
+  console.log(url);
+  let texto = useRef("");
+
   useEffect(() => {
     const fecthData = async () => {
       try {
-        const { data } = await axios(`/${clave}_webNovel/${chapter}.txt`);
-        setData(data);
-        const title = data
-          .split(/\n\s*\n/)
-          .filter((item, i) => i < 1)
-          .join("\n");
+        console.log(url);
+        const { data } = await axios(url);
+        const title = data.split(/\n\s*\n/)[0];
+        texto.current = data.split(/\n\s*\n/)[1];
+
         setTitle(title);
         setBgHeader("");
         setHeigth(true);
@@ -101,11 +49,11 @@ const Chapters = () => {
   useEffect(() => {
     const fecthFiles = async () => {
       try {
-        await axios(`/${clave}_webNovel/${+chapter + 1}.txt`);
+        const urlNexT = url.split("/").slice(0, -1).join("/");
+        await axios(`${urlNexT}/${+chapter + 1}.txt`);
         setCont(+chapter + 1);
       } catch (error) {
         setCont(+chapter);
-        // console.log(error);
       } finally {
         setLoader(false);
       }
@@ -114,14 +62,8 @@ const Chapters = () => {
   }, [chapter]);
 
   if (loader) return <Loading />;
-  if (dataContent) {
-    // console.log(dataContent);
-    texto = dataContent
-      .split(/\n\s*\n/)
-      .filter((item, i) => i > 0)
-      .join("\n");
-  }
-  const contenidoFormateado = formatearTextoConImagenes(texto);
+
+  const contenidoFormateado = formatearTextoConImagenes(texto.current);
   // console.log(contenidoFormateado);
   return (
     <section className="container_capi">
@@ -130,25 +72,32 @@ const Chapters = () => {
           {contenidoFormateado}
           <span className="h-1 w-full flex justify-center items-center rounded-md color_line"></span>
           <div className="naveg">
-            {chapter > 1 ? (
+            {chapter > 1 && (
               <Link
-                className="previuos cursor-pointer text-black btn_dinamic "
-                to={`/leer/webnovel/${clave}/${+chapter - 1}`}
+                className="previuos cursor-pointer text-black btn"
+                to={`/leer/webnovel/${path}/${clave}/${
+                  +chapter - 1
+                }?volumen=${volumen}`}
               >
                 <img src="https://i.ibb.co/LS3B5Ky/previuos.webp" alt="" />
               </Link>
-            ) : (
-              ""
             )}
             <div className="home">
-              <Link to={`/novela/${clave}`} className="home__url">
+              <Link
+                to={`/novela/${clave}/${encodeURIComponent(
+                  "It Seems I Was Hitting on the Most Beautiful Girl in School"
+                )}`}
+                className="home__url btn"
+              >
                 <img src="https://i.ibb.co/hgYVmk4/home.webp" alt="" />
               </Link>
             </div>
             {chapter < cont ? (
               <Link
-                className="next cursor-pointer text-black btn_dinamic mostrar"
-                to={`/leer/webnovel/${clave}/${+chapter + 1}`}
+                className="next cursor-pointer text-black btn"
+                to={`/leer/webnovel/${path}/${clave}/${
+                  +chapter + 1
+                }?volumen=${volumen}`}
               >
                 <img src="https://i.ibb.co/jLxQJGZ/next.webp" alt="" />
               </Link>

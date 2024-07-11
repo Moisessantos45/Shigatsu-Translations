@@ -1,42 +1,28 @@
 import PropTypes from "prop-types";
 import DownloadButton from "./DownloadButton";
-import LinkButton from "./LinkButton";
+import AppUse from "../../Hooks/AppUse";
 
-const VolumeCard = ({ vol, disponibilidad, downloand, name }) => {
+const VolumeCard = ({ vol, disponibilidad, downloand }) => {
+  const { quitarDark } = AppUse();
+  const bgColor = quitarDark ? "bg-gray-800" : "bg-[#e9eaed]";
+  const textColorPrimary = quitarDark ? "text-white" : "text-gray-900";
+  const textColorSecondary = quitarDark ? "text-gray-400" : "text-gray-700";
   return (
-    <div className="bg-gray-800 text-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+    <div
+      className={`${bgColor} ${textColorPrimary} rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300`}
+    >
       <img
-        src={vol.imagen}
+        src={vol.portadaVolumen}
         alt={`Volumen ${vol.volumen}`}
         className="w-64 object-contain"
       />
       <div className="p-4 text-center">
         <h2 className="text-xl font-bold mb-2">Volumen {vol.volumen}</h2>
-        <p className="text-gray-400 mb-4">{disponibilidad}</p>
-        {downloand === "leer" && (
-          <LinkButton url={`/leer/${name}_${vol.volumen}/1`} label="Leer" />
-        )}
-        {vol.link_mega && (
-          <DownloadButton link={vol.link_mega} label="Descargar PDF Mega" />
-        )}
-        {vol.link_mediafire && (
-          <DownloadButton
-            link={vol.link_mediafire}
-            label="Descargar PDF Mediafire"
-          />
-        )}
-        {vol.link_epub_mega && (
-          <DownloadButton
-            link={vol.link_epub_mega}
-            label="Descargar EPUB Mega"
-          />
-        )}
-        {vol.link_epub_mediafire && (
-          <DownloadButton
-            link={vol.link_epub_mediafire}
-            label="Descargar EPUB Mediafire"
-          />
-        )}
+        <p className={`mb-4 ${textColorSecondary}`}>{disponibilidad}</p>
+        {downloand.length > 0 &&
+          downloand.map((link, i) => (
+            <DownloadButton key={i} link={link} label="Descargar" />
+          ))}
       </div>
     </div>
   );
@@ -44,9 +30,8 @@ const VolumeCard = ({ vol, disponibilidad, downloand, name }) => {
 
 VolumeCard.propTypes = {
   vol: PropTypes.object.isRequired,
-  disponibilidad: PropTypes.array.isRequired,
-  downloand: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  disponibilidad: PropTypes.string.isRequired,
+  downloand: PropTypes.array.isRequired,
 };
 
 export default VolumeCard;

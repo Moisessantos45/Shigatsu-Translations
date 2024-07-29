@@ -119,7 +119,7 @@ const Cards = () => {
           </div>
         </form>
       </section>
-      <section className=" w-12/12 relative flex flex-wrap margin justify-around p-2">
+      <section className=" lg:w-12/12 w-full relative flex flex-wrap margin justify-around lg:p-2 p-1">
         <div className="h-32 m-auto mt-2 flex justify-evenly text-center flex-col w-12/12">
           <span className="h-1 w-full flex justify-center items-center rounded-md color_line"></span>
           <h1 className="title text-2xl uppercase font-bold">

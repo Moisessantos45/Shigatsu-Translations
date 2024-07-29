@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import LayoutHome from "./Layouts/LayoutHome";
 import Cards from "./Home/Cards";
 import { lazy } from "react";
+import Mantenimiento from "./Pages/Mantenimiento";
 
 const PageNovel = lazy(() => import("./Pages/PageNovel"));
 const Chapter = lazy(() => import("./Pages/Chapter"));
@@ -29,6 +30,10 @@ const App = createBrowserRouter([
         element: <Chapters />,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <Mantenimiento />,
   },
 ]);
 

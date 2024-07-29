@@ -43,4 +43,20 @@ const fromToJsonMapChapter = (data) => {
   };
 };
 
-export { fromToJsonMapNovel, fromToJsonMapVol, fromToJsonMapChapter };
+const fromToJsonMapPost = (data) => {
+  return {
+    createdAt: data["createdAt"],
+    namePost: data["namePost"] || "",
+    bg: data["bg"] || "https://i.ibb.co/BgVKqzR/logo-firefly.jpg",
+    numberPost: data["numberPost"] || "",
+    novelId: data["novelId"] || "",
+    nombreNovela: data["nombreNovela"],
+  };
+};
+
+export {
+  fromToJsonMapNovel,
+  fromToJsonMapVol,
+  fromToJsonMapChapter,
+  fromToJsonMapPost,
+};

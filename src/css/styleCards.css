@@ -25,7 +25,6 @@
   color: #49497e;
   font-weight: 700;
   -webkit-text-stroke: 0.3px black;
-  /* box-shadow: 0 -55px 28px -25px #1a163f inset; */
 }
 
 .line3 {
@@ -56,7 +55,7 @@
 
 .cards {
   position: relative;
-  width: 270px;
+  width: 250px;
   height: auto;
   display: flex;
   overflow: hidden;
@@ -91,8 +90,8 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  width: 250px;
-  height: 350px;
+  width: 230px;
+  height: 340px;
   margin: 10px 20px;
   border: 1px solid #1a163f;
   border-radius: 3px;
@@ -106,8 +105,7 @@
   left: 0;
   height: 61%;
   width: 100%;
-  /* background-image: url(../img/kamatte_v3.png); */
-  background-size: 260px 340px;
+  background-size: 240px 330px;
   background-position: left top;
   transition: all 0.5s ease-in-out;
   background-repeat: no-repeat;
@@ -119,8 +117,7 @@
   left: 0;
   height: 39%;
   width: 100%;
-  /* background-image: url(/img/kamatte1.jpg); */
-  background-size: 260px 363px;
+  background-size: 240px 353px;
   background-position: left bottom;
   transition: all 0.5s ease-in-out;
 }
@@ -177,4 +174,51 @@
 .cards_img:hover .overlay {
   opacity: 0.8;
   transform: rotate(0deg);
+}
+
+@media only screen and (max-width: 680px) {
+  .cards {
+    width: 160px;
+    height: auto;
+  }
+
+  .cards_tipo {
+    font-size: 0.8rem;
+  }
+
+  .cards_img {
+    width: 155px;
+    height: 240px;
+    margin: 5px;
+  }
+
+  .cards_img .cards_back {
+    background-size: 153px 233px;
+  }
+
+  .cards_img .cards_back2 {
+    background-size: 153px 250px;
+  }
+
+  .overlay {
+    height: 120px;
+    font-size: 17px;
+    bottom: 25px;
+  }
+
+  .overlay_descripcion {
+    font-size: 0.7rem;
+  }
+
+  .cards_title {
+    font-size: 0.8rem;
+  }
+
+  .cards_img:hover .cards_back {
+    transform-origin: 220px 220px;
+  }
+
+  .cards_img:hover .cards_back2 {
+    transform-origin: -20px 200px;
+  }
 }

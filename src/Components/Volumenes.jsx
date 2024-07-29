@@ -36,15 +36,20 @@ const Volumenes = () => {
     };
     solicitud();
   }, [id]);
-  
- 
+
   if (loader) return <Loading />;
   return (
     <section className="w-11/12 mx-auto my-8 flex flex-wrap justify-evenly">
-      {volumen.length > 0 ? (
+      {volumen.length > 0 && (
         <>
           <HeaderSection title="Volúmenes" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div
+            className={`grid ${
+              volumen.length < 4
+                ? "md:grid-cols-3"
+                : "md:grid-cols-4"
+            } grid-cols-1 sm:grid-cols-2 gap-6`}
+          >
             {volumen.map((vol) => (
               <VolumeCard
                 key={vol.volumenId}
@@ -55,8 +60,6 @@ const Volumenes = () => {
             ))}
           </div>
         </>
-      ) : (
-        <span></span>
       )}
     </section>
   );

@@ -1,8 +1,13 @@
-# React + Vite
+# Pagina web ShigatsuTranslations
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este sitio esta dedicado a la publicacion de contenido de novelea ligeras
+japonesas.
 
-Currently, two official plugins are available:
+## Caracteristicas
+    * Visualizacion de novelas ligeras japonesas.
+    * Lectura en español.
+    * Visualizacion de informacion sobre las novelas ligeras.
+    * Noticias sobre las novelas en publicacion.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Sitio web
+   Link [web](https://shigatsu-translations.vercel.app)

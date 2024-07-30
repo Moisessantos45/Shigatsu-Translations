@@ -1,84 +1,98 @@
+const SYMBOLS = [
+  "◊◊◊",
+  "◊◊",
+  "◊",
+  "$$$",
+  "$$",
+  "$",
+  "**",
+  "*",
+  "§§§",
+  "◆ ◆ ◆",
+  "☆",
+  "☆☆",
+  "☆☆☆",
+  "++++++++",
+  "++++++",
+  "+++++++++",
+  "+++++++",
+  "+++++++++++++++++++++++++",
+  "+++++",
+];
+
+const NOTAS_TRADUCTOR = "-----";
+
 const unirSimbolos = (texto) => {
   const theme = document.documentElement.classList.contains("darkMode");
   const themeActive = theme ? "bg-zinc-700" : "bg-gray-300";
-  const symbols = [
-    "◊◊◊",
-    "◊◊",
-    "◊",
-    "$$$",
-    "$$",
-    "$",
-    "**",
-    "*",
-    "§§§",
-    "◆ ◆ ◆",
-    "☆",
-    "☆☆",
-    "☆☆☆",
-    "++++++++",
-    "++++++",
-    "+++++++++",
-    "+++++++",
-    "+++++++++++++++++++++++++",
-    "+++++",
-  ];
-  const notasTraductor = "-----";
-  let result = [];
-  let preBlock = "";
-  let insideNote = false;
 
-  for (let line of texto.split("\n")) {
-    if (line.trim() === notasTraductor) {
-      if (!insideNote) {
-        insideNote = true;
-        if (preBlock !== "") {
-          result.push(
-            <pre key={result.length} className="whitespace-pre-line">
-              {preBlock}
-            </pre>
-          );
-          preBlock = "";
-        }
-      } else {
-        insideNote = false;
+  const processLine = (line, isInsideNote) => {
+    if (line.trim() === NOTAS_TRADUCTOR) {
+      return { type: "toggle", isInsideNote: !isInsideNote };
+    }
+    if (isInsideNote) {
+      return { type: "note", content: line };
+    }
+    if (SYMBOLS.includes(line.trim())) {
+      return { type: "symbol", content: line };
+    }
+    return { type: "text", content: line };
+  };
+
+  const lines = texto.split("\n");
+  let result = [];
+  let currentBlock = "";
+  let isInsideNote = false;
+
+  for (const line of lines) {
+    const {
+      type,
+      content,
+      isInsideNote: newNoteState,
+    } = processLine(line, isInsideNote);
+
+    if (type === "toggle") {
+      if (currentBlock) {
         result.push(
-          <span
-            key={result.length}
-            className={`m-auto mt-2 mb-2 flex w-full p-1 ${themeActive} rounded-lg`}
-          >
-            {preBlock}
-          </span>
+          isInsideNote ? (
+            <span
+              key={result.length}
+              className={`m-auto mt-2 mb-2 flex w-full p-1 ${themeActive} rounded-lg`}
+            >
+              {currentBlock}
+            </span>
+          ) : (
+            <pre key={result.length} className="whitespace-pre-line">
+              {currentBlock}
+            </pre>
+          )
         );
-        preBlock = "";
+        currentBlock = "";
       }
-    } else if (insideNote) {
-      preBlock += line + "\n";
+      isInsideNote = newNoteState;
+    } else if (type === "symbol") {
+      if (currentBlock) {
+        result.push(
+          <pre key={result.length} className="whitespace-pre-line">
+            {currentBlock}
+          </pre>
+        );
+        currentBlock = "";
+      }
+      result.push(
+        <span key={result.length} className="m-auto flex justify-center w-24">
+          {content}
+        </span>
+      );
     } else {
-      let isSymbol = symbols.includes(line.trim());
-      if (isSymbol) {
-        if (preBlock !== "") {
-          result.push(
-            <pre key={result.length} className="whitespace-pre-line">
-              {preBlock}
-            </pre>
-          );
-          preBlock = "";
-        }
-        result.push(
-          <span key={result.length} className="m-auto flex justify-center w-24">
-            {line}
-          </span>
-        );
-      } else {
-        preBlock += line + "\n";
-      }
+      currentBlock += content + "\n";
     }
   }
 
-  if (preBlock !== "") {
+  if (currentBlock) {
     result.push(
       <pre key={result.length} className="whitespace-pre-line">
-        {preBlock}
+        {currentBlock}
       </pre>
     );
   }
@@ -86,29 +100,29 @@ const unirSimbolos = (texto) => {
   return result;
 };
 
-function formatearTextoConImagenes(texto) {
-  if (texto.length < 0) return [];
-  if (!new RegExp("https://i.ibb.co", "i").test(texto)) {
+const formatearTextoConImagenes = (texto) => {
+  if (texto.length === 0) return [];
+
+  if (!/https:\/\/res\.cloudinary\.com/i.test(texto)) {
     return unirSimbolos(texto);
   }
-  const fragmentos = texto.split("\nhttps://i.ibb.co");
-  return fragmentos.flatMap((fragmento, i) => {
-    if (i === 0) {
-      return [unirSimbolos(fragmento)];
-    } else {
-      const indiceEspacio = fragmento.indexOf("\n");
-      const url = `https://i.ibb.co${
-        indiceEspacio !== -1 ? fragmento.slice(0, indiceEspacio) : fragmento
-      }`;
-      const resto = indiceEspacio !== -1 ? fragmento.slice(indiceEspacio) : "";
-      return [
-        <figure key={i}>
-          <img src={url.trim()} alt="" />
-        </figure>,
-        unirSimbolos(resto),
-      ];
-    }
-  });
-}
 
-export {formatearTextoConImagenes};
+  return texto.split("\nhttps://res.cloudinary.com").flatMap((fragmento, i) => {
+    if (i === 0) return unirSimbolos(fragmento);
+
+    const [url, ...restoArray] = fragmento.split("\n");
+    const resto = restoArray.join("\n");
+
+    return [
+      <figure key={`img-${i}`}>
+        <img
+          src={`https://res.cloudinary.com${url.trim()}`}
+          alt="imagen del capitulo"
+        />
+      </figure>,
+      ...unirSimbolos(resto),
+    ];
+  });
+};
+
+export { formatearTextoConImagenes };

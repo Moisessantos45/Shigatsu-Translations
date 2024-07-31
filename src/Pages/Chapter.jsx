@@ -28,7 +28,6 @@ const Chapter = () => {
           ...doc.data(),
           capituloId: doc.id,
         }));
-        console.log(novelList);
         setCont(
           novelList.filter(
             (item) => item.novelId === clave && item.volumenPertenece === +vol
@@ -89,7 +88,7 @@ const Chapter = () => {
             )}
             <div className="home">
               <Link
-                to={`/novela/${clave}/${encodeURIComponent(
+                to={`/novela/${dataContent.novelId}/?nombre=${encodeURIComponent(
                   dataContent.nombreNovela
                 )}`}
                 className="home__url btn"

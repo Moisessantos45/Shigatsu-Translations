@@ -29,7 +29,7 @@ const LatestPosts = () => {
 
   if (loading) return <div>Loading...</div>;
   return (
-    <div className=" p-4 md:p-8 lg:w-11/12 w-full margin">
+    <div className=" p-4 md:p-8 lg:w-11/12 w-12/12 margin">
       <h1 className="text-3xl font-bold text-white mb-6">Latest Posts</h1>
       <div className="lg:grid lg:grid-cols-4 gap-4 flex flex-col">
         {post.map((post, i) => (

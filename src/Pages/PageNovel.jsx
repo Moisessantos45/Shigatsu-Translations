@@ -1,6 +1,7 @@
 import { collection, getDocs } from "firebase/firestore/lite";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import Descripcion from "../Components/Descripcion";
 import Gallery from "../Components/Gallery";
 import Personajes from "../Components/Personajes";
@@ -51,6 +52,18 @@ const PageNovel = () => {
   if (loader) return <Loading />;
   return (
     <>
+      <Helmet>
+        <title>{novela.titleNovel} - Shigatsu Translation</title>
+        <meta
+          name="description"
+          content={`Lee ${novela.titleNovel}, una novela traducida por Shigatsu Translation. Conoce sus personajes y capítulos disponibles.`}
+        />
+        <meta
+          name="keywords"
+          content={`novela, ${novela.titleNovel}, traducción, Shigatsu Translation`}
+        />
+        <link rel="canonical" href={`https://shigatsu-translations.vercel.app/novela/${id}`} />
+      </Helmet>
       <Descripcion novela={novela} />
       <Personajes personajes={novela.personajes} />
       {id === "iwAda49vXUdhaNzz2DXF" && (

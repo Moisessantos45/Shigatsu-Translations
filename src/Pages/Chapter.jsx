@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Helmet } from "react-helmet";
 import Loading from "../Components/Loading";
 import "../css/styleChapter.css";
 import AppUse from "../Hooks/AppUse";
@@ -67,51 +68,76 @@ const Chapter = () => {
     );
 
   return (
-    <section className="container_capi">
-      {contenidoFormateado.length > 0 ? (
-        <>
-          {contenidoFormateado}
-          <span className="h-1 w-full flex justify-center items-center rounded-md color_line"></span>
-          <div className="naveg">
-            {+capitulo > 1 && (
-              <Link
-                className="previuos cursor-pointer text-black btn_dinamic btn"
-                to={`/leer/${clave}/${vol}/${
-                  +capitulo - 1
-                }?nombre=${encodeURIComponent(dataContent.nombreNovela)}`}
-              >
-                <img
-                  src="https://i.ibb.co/LS3B5Ky/previuos.webp"
-                  alt="Previous"
-                />
-              </Link>
-            )}
-            <div className="home">
-              <Link
-                to={`/novela/${dataContent.novelId}/?nombre=${encodeURIComponent(
-                  dataContent.nombreNovela
-                )}`}
-                className="home__url btn"
-              >
-                <img src="https://i.ibb.co/hgYVmk4/home.webp" alt="Home" />
-              </Link>
+    <>
+      <Helmet>
+        <title>{`Capítulo ${capitulo} de ${
+          dataContent ? dataContent.nombreNovela : "Novela"
+        } - Shigatsu Translation`}</title>
+        <meta
+          name="description"
+          content={`Lee el capítulo ${capitulo} de ${
+            dataContent ? dataContent.nombreNovela : "Novela"
+          }. Disfruta de la traducción y conoce más sobre la historia.`}
+        />
+        <meta
+          name="keywords"
+          content={`novela, ${
+            dataContent ? dataContent.nombreNovela : "Novela"
+          }, capítulo ${capitulo}, traducción, Shigatsu Translation`}
+        />
+        <link
+          rel="canonical"
+          href={`https://shigatsu-translations.vercel.app/leer/${clave}/${vol}/${capitulo}?nombre=${encodeURIComponent(
+            dataContent ? dataContent.nombreNovela : ""
+          )}`}
+        />
+      </Helmet>
+      <section className="container_capi">
+        {contenidoFormateado.length > 0 ? (
+          <>
+            {contenidoFormateado}
+            <span className="h-1 w-full flex justify-center items-center rounded-md color_line"></span>
+            <div className="naveg">
+              {+capitulo > 1 && (
+                <Link
+                  className="previuos cursor-pointer text-black btn_dinamic btn"
+                  to={`/leer/${clave}/${vol}/${
+                    +capitulo - 1
+                  }?nombre=${encodeURIComponent(dataContent.nombreNovela)}`}
+                >
+                  <img
+                    src="https://i.ibb.co/LS3B5Ky/previuos.webp"
+                    alt="Previous"
+                  />
+                </Link>
+              )}
+              <div className="home">
+                <Link
+                  to={`/novela/${
+                    dataContent.novelId
+                  }/?nombre=${encodeURIComponent(dataContent.nombreNovela)}`}
+                  className="home__url btn"
+                >
+                  <img src="https://i.ibb.co/hgYVmk4/home.webp" alt="Home" />
+                </Link>
+              </div>
+              {+capitulo < cont && (
+                <Link
+                  className="next cursor-pointer text-black btn_dinamic btn"
+                  to={`/leer/${clave}/${vol}/${
+                    +capitulo + 1
+                  }?nombre=${encodeURIComponent(dataContent.nombreNovela)}`}
+                >
+                  <img src="https://i.ibb.co/jLxQJGZ/next.webp" alt="Next" />
+                </Link>
+              )}
             </div>
-            {+capitulo < cont && (
-              <Link
-                className="next cursor-pointer text-black btn_dinamic btn"
-                to={`/leer/${clave}/${vol}/${
-                  +capitulo + 1
-                }?nombre=${encodeURIComponent(dataContent.nombreNovela)}`}
-              >
-                <img src="https://i.ibb.co/jLxQJGZ/next.webp" alt="Next" />
-              </Link>
-            )}
-          </div>
-        </>
-      ) : (
-        <h1 className="text-center text-4xl m-2">No hay capitulo</h1>
-      )}
-    </section>
+          </>
+        ) : (
+          <h1 className="text-center text-4xl m-2">No hay capitulo</h1>
+        )}
+      </section>
+    </>
   );
 };
 

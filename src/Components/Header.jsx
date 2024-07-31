@@ -97,6 +97,7 @@ const Header = () => {
           <div className="pb-3 md:w-11/12 w-full m-auto">
             <div
               className={`flex border-b ${borderColor} px-4 gap-8 overflow-x-auto`}
+              role="navigation" aria-label="Main"
             >
               <NavLink
                 className={`flex flex-col items-center justify-center border-b-[3px] ${activeBorderColor} ${activeTextColor} pb-[13px] pt-4`}

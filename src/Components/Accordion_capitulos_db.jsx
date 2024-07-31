@@ -35,7 +35,7 @@ const AccordionCapitulosDb = () => {
           }))
           .filter((item) => item.novelId === id);
         const fromToJson = chapterList.map(fromToJsonMapChapter);
-        console.log(fromToJson);
+
         const shortChapters = fromToJson.sort((a, b) => {
           if (a.volumenPertenece === b.volumenPertenece) {
             return a.capitulo - b.capitulo;

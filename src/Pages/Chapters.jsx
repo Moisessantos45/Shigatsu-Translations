@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import { Link, useLocation, useParams } from "react-router-dom";
+import axios from "axios";
 import { Helmet } from "react-helmet";
 import Loading from "../Components/Loading";
 import "../css/styleChapter.css";
@@ -29,8 +29,9 @@ const Chapters = () => {
   const fetchChapter = async () => {
     try {
       const { data } = await axios(url);
-      const [title, content] = data.split(/\n\s*\n/);
-
+      const splitLine = data.split("\n");
+      const title = splitLine[0];
+      const content = splitLine.slice(1).join("\n");
       setTitle(title);
       setBgHeader("");
       setHeigth(true);

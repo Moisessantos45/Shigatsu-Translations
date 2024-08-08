@@ -1,0 +1,86 @@
+.accordion-container {
+  width: 85%;
+  /* max-width: 800px; */
+  margin: 2rem auto;
+}
+
+.accordion-title-container {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.accordion-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #94a3b8; /* Azul claro */
+}
+
+.accordion-item {
+  background-color: #2a2a38; /* Fondo oscuro del ítem */
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  max-height: 60px; /* Altura de la cabecera */
+}
+
+.accordion-item.open {
+  max-height: 200px; /* Ajusta según el contenido */
+}
+
+.accordion-header {
+  width: 100%;
+  background: #31313f; /* Fondo de la cabecera */
+  color: #94a3b8; /* Azul claro */
+  text-align: left;
+  padding: 1rem;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s ease;
+}
+
+.accordion-header:hover {
+  background: #3b3b4a; /* Color de fondo al pasar el ratón */
+}
+
+.accordion-icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  background-color: #3b3b4a; /* Fondo del contenido */
+  transition: max-height 0.3s ease;
+  padding: 0 1rem;
+}
+
+.accordion-content.open {
+  max-height: 200px; /* Ajusta según el contenido */
+  padding-bottom: 1rem;
+}
+
+.accordion-link {
+  display: block;
+  padding: 0.75rem 0;
+  color: #94a3b8; /* Azul claro */
+  text-decoration: none;
+  font-size: 0.875rem;
+  border-bottom: 1px solid #444;
+}
+
+.accordion-link:hover {
+  color: #60a5fa; /* Azul más claro */
+  text-decoration: underline;
+}

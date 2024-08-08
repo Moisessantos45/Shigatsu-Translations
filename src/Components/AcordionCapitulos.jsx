@@ -1,21 +1,17 @@
 import PropTypes from "prop-types";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import Typography from "@mui/material/Typography";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import AppUse from "../Hooks/AppUse";
+import "../css/AcordionCapitulos.css";
 
 const AcordionCapitulos = ({ title, path, lengthContent, vol }) => {
   const { quitarDark } = AppUse();
-  const [expanded, setExpanded] = useState(false);
-  let array = Array.from({ length: lengthContent }, (_, i) => i + 1);
+  const [expanded, setExpanded] = useState(null);
+  const array = Array.from({ length: lengthContent }, (_, i) => i + 1);
   const capitulosArray = array;
 
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
+  const handleChange = (panel) => {
+    setExpanded(expanded === panel ? null : panel);
   };
 
   const gruposDeCapitulos = [];
@@ -23,65 +19,48 @@ const AcordionCapitulos = ({ title, path, lengthContent, vol }) => {
     gruposDeCapitulos.push(capitulosArray.slice(i, i + 10));
   }
 
-  const bgColor = quitarDark ? "#3b3364" : "#f0f0f5";
-  const detailsBgColor = quitarDark ? "#2c2449" : "#e0e0eb";
-  const textColor = quitarDark ? "text-white" : "text-gray-900";
-  const summaryColor = quitarDark ? "white" : "black";
+
+  const textColor = quitarDark ? "#94a3b8" : "#333";
 
   return (
-    <div className="w-10/12 flex flex-col margin mx-auto">
+    <div className="accordion-container" style={{ color: textColor }}>
       {gruposDeCapitulos.length > 0 && (
         <>
-          <div className="w-full flex justify-center m-2">
-            <h1 className={`text-xl font-bold ${textColor}`}>
-              {title}
-              {/* Capitulos Disponibles &quot;Web Novel&quot; */}
-            </h1>
+          <div className="accordion-title-container">
+            <h1 className="accordion-title">{title}</h1>
           </div>
           {gruposDeCapitulos.map((grupo, i) => (
-            <Accordion
+            <div
               key={i}
-              sx={{
-                backgroundColor: bgColor,
-                "&:active": { borderRadius: "0 0 10px 10px" },
-                margin: "5px",
-              }}
-              expanded={expanded === `panel${i}`}
-              onChange={handleChange(`panel${i}`)}
+              className={`accordion-item ${expanded === i ? 'open' : ''}`}
             >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon className={textColor} />}
-                aria-controls="panel1bh-content"
-                id={`panel${i}bh-header`}
-                sx={{ color: summaryColor }}
+              <button
+                className="accordion-header"
+                onClick={() => handleChange(i)}
               >
-                <Typography
-                  sx={{ width: "85%", flexShrink: 0, color: summaryColor }}
+                <span>{`Capítulos ${i * 10 + 1}-${i * 10 + 10}`}</span>
+                <svg
+                  className={`accordion-icon ${expanded === i ? 'rotate' : ''}`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  {`Capitulos ${i * 10 + 1}-${i * 10 + 10}`}
-                </Typography>
-              </AccordionSummary>
-              {grupo.map((char, i) => (
-                <AccordionDetails
-                  key={i}
-                  sx={{
-                    backgroundColor: detailsBgColor,
-                    borderRadius: "0 0 10px 10px",
-                    margin: "5px auto",
-                  }}
-                >
-                  <Typography>
-                    <Link
-                      to={`${path}/${char}?volumen=${vol}`}
-                      // to={`/leer/webnovel/${id}/${char}`}
-                      className={`flex items-center text-sm ${textColor} w-10/12 h-5`}
-                    >
-                      {vol && `Volumen ${vol} -`} Capitulo {char}
-                    </Link>
-                  </Typography>
-                </AccordionDetails>
-              ))}
-            </Accordion>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className={`accordion-content ${expanded === i ? 'open' : ''}`}>
+                {grupo.map((char, j) => (
+                  <Link
+                    key={j}
+                    to={`${path}/${char}?volumen=${vol}`}
+                    className="accordion-link"
+                  >
+                    {vol && `Volumen ${vol} -`} Capítulo {char}
+                  </Link>
+                ))}
+              </div>
+            </div>
           ))}
         </>
       )}

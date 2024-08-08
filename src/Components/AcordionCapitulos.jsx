@@ -23,8 +23,8 @@ const AcordionCapitulos = ({ title, path, lengthContent, vol }) => {
     gruposDeCapitulos.push(capitulosArray.slice(i, i + 10));
   }
 
-  const bgColor = quitarDark ? "#3b3364" : "#f0f0f5";
-  const detailsBgColor = quitarDark ? "#2c2449" : "#e0e0eb";
+  const bgColor = quitarDark ? "#2a2a38" : "#f0f0f5";
+  const detailsBgColor = quitarDark ? "#3b3b4a" : "#e0e0eb";
   const textColor = quitarDark ? "text-white" : "text-gray-900";
   const summaryColor = quitarDark ? "white" : "black";
 
@@ -44,6 +44,7 @@ const AcordionCapitulos = ({ title, path, lengthContent, vol }) => {
               sx={{
                 backgroundColor: bgColor,
                 "&:active": { borderRadius: "0 0 10px 10px" },
+                "&:hover": { backgroundColor: detailsBgColor },
                 margin: "5px",
               }}
               expanded={expanded === `panel${i}`}
@@ -66,15 +67,13 @@ const AcordionCapitulos = ({ title, path, lengthContent, vol }) => {
                   key={i}
                   sx={{
                     backgroundColor: detailsBgColor,
-                    borderRadius: "0 0 10px 10px",
-                    margin: "5px auto",
                   }}
                 >
                   <Typography>
                     <Link
                       to={`${path}/${char}?volumen=${vol}`}
                       // to={`/leer/webnovel/${id}/${char}`}
-                      className={`flex items-center text-sm ${textColor} w-10/12 h-5`}
+                      className={`flex items-center text-sm ${textColor} w-10/12 h-5 hover:underline hover:text-blue-500`}
                     >
                       {vol && `Volumen ${vol} -`} Capitulo {char}
                     </Link>

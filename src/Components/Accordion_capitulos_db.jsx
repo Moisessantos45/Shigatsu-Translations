@@ -106,12 +106,14 @@ const AccordionCapitulosDb = () => {
                 <AccordionDetails
                   key={i}
                   sx={{
-                     borderRadius: "0px",
+                    borderRadius: "0px",
                   }}
                 >
                   <Typography>
                     <Link
-                      to={`/leer/${char.novelId}/${char.volumenPertenece}/${char.capitulo}?nombre=${encodeURIComponent(char.nombreNovela)}`}
+                      to={`/leer/${char.novelId}/${char.volumenPertenece}/${
+                        char.capitulo
+                      }?nombre=${encodeURIComponent(char.nombreNovela)}`}
                       className={`flex items-center text-sm ${textColor} w-10/12 h-5 hover:underline hover:text-blue-500`}
                     >
                       Volumen {char.volumenPertenece} - capitulo {char.capitulo}

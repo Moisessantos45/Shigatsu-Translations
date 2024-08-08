@@ -62,7 +62,10 @@ const PageNovel = () => {
           name="keywords"
           content={`novela, ${novela.titleNovel}, traducción, Shigatsu Translation`}
         />
-        <link rel="canonical" href={`https://shigatsu-translations.vercel.app/novela/${id}`} />
+        <link
+          rel="canonical"
+          href={`https://shigatsu-translations.vercel.app/novela/${id}`}
+        />
       </Helmet>
       <Descripcion novela={novela} />
       <Personajes personajes={novela.personajes} />
@@ -90,6 +93,12 @@ const PageNovel = () => {
             path={`/leer/webnovel/chapterText/${id}`}
             vol={3}
             lengthContent={7}
+          />
+          <AcordionCapitulos
+            title='Capitulos Disponibles "Light Novel 4"'
+            path={`/leer/webnovel/chapterText/${id}`}
+            vol={4}
+            lengthContent={6}
           />
         </>
       )}

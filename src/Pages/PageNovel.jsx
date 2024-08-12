@@ -69,6 +69,22 @@ const PageNovel = () => {
       </Helmet>
       <Descripcion novela={novela} />
       <Personajes personajes={novela.personajes} />
+      {id === "DXYecNlRpkJzZ2PFKjQG" && (
+        <AcordionCapitulos
+          title='Capitulos Disponibles "Light Novel v1"'
+          path={`/leer/webnovel/chapterText/${id}`}
+          vol={2}
+          lengthContent={9}
+        />
+      )}
+      {id === "bMl4HB8Z463nBkobhH7w" && (
+        <AcordionCapitulos
+          title='Capitulos Disponibles "Light Novel v1"'
+          path={`/leer/webnovel/chapterText/${id}`}
+          vol={1}
+          lengthContent={7}
+        />
+      )}
       {id === "iwAda49vXUdhaNzz2DXF" && (
         <>
           <AcordionCapitulos

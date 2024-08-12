@@ -26,7 +26,7 @@ const Descripcion = ({ novela }) => {
   return (
     <>
       <section
-        className={`sm:container w-10/12 mx-auto p-6 mt-5 ${bgColor} rounded-lg flex flex-col md:flex-row items-center`}
+        className={`sm:container w-11/12 mx-auto p-6 mt-5 ${bgColor} rounded-lg flex flex-col md:flex-row items-center`}
       >
         <figure className="mb-6 md:mb-0 md:mr-6 flex-shrink-0">
           <img
